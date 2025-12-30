@@ -1,0 +1,24 @@
+import threading
+import time
+
+def brew_chai():
+    print(f"{threading.current_thread().name} started the brewing process...")
+    count=0
+    for i in range(100_000_000):
+        count+=1
+    print(f"{threading.current_thread().name} finished the brewing process...")
+
+
+thread1=threading.Thread(target=brew_chai, name="barsita-1")
+thread2=threading.Thread(target=brew_chai, name="barsita-2")
+
+start=time.time()
+thread1.start()
+thread2.start()
+
+thread1.join()
+thread2.join()
+
+end=time.time()
+
+print(f"Total time taken is {end-start:.2f} seconds")
